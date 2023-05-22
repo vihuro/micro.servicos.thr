@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6x6CUzQyqFU7Kb8tvzM/1eosrsIbjFQanmsLeNnC3V0vSvjwAtSt0MKaYGqkxdjVnTnPBJqy9t2brR8ltMp6yw==",
+  "dgSpecHash": "zwe2THz7nEiaI6MHhMWmqWxnJP+VS4XiNrH+yr235WyJ0+kEiqTDSQtDPDOnm8TFlyZ/KB8o9O4qACj1nr+L3w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\thr\\source\\repos\\micro_servicos_2\\THR.API\\THR.AUTH\\THR.AUTH.csproj",
+  "projectFilePath": "C:\\Users\\thr\\source\\repos\\micro_servicos\\THR.API\\THR.AUTH\\THR.AUTH.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thr\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\thr\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

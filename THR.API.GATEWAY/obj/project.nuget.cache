@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y5msxcsF7QgoI+Wutd4XBE9HAXgKAvDd3ET2hZtQCNsFIULulKfZrm2C32RzPuQojb/qHZ1QgB51uTNTMcFUGA==",
+  "dgSpecHash": "e/c4dbH3GUU4kiMphMphP1lCtTHTJ0aX6l4KpNi0jnFOJFYAOHyAhTbHU2KZ6KuOOi7lPPb2e9cSxs84946Tiw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\thr\\source\\repos\\micro_servicos_2\\THR.API\\THR.API.GATEWAY\\THR.API.GATEWAY.csproj",
+  "projectFilePath": "C:\\Users\\thr\\source\\repos\\micro_servicos\\THR.API\\THR.API.GATEWAY\\THR.API.GATEWAY.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thr\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",
     "C:\\Users\\thr\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.5\\microsoft.aspnetcore.jsonpatch.7.0.5.nupkg.sha512",
