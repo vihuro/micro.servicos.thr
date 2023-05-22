@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\THR.AUTH.props" />
+</Project>

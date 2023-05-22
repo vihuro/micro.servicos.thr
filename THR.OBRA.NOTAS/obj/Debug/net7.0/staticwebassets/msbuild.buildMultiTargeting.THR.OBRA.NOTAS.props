@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\THR.OBRA.NOTAS.props" />
+</Project>
