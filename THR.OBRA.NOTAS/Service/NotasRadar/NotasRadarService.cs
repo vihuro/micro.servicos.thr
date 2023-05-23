@@ -12,30 +12,28 @@ namespace THR.OBRA.NOTAS.Service.NotasRadar
         {
             var list = new List<NotaTXTDto>();
             var filePath = "smb://192.168.2.24/reports/obra_bi_REL_teste.txt";
-            var auth = new NtlmPasswordAuthentication("192.168.2.24", "thr", "thr1");
-            using (var reader = new SmbFile(filePath, auth).GetInputStream())
-            using (var leitor = new StreamReader(reader,
-                                                    Encoding.GetEncoding("ISO=8859-1"), true))
+            //var auth = new NtlmPasswordAuthentication("192.168.2.24", "thr", "thr1");
+            using var reader = new SmbFile(filePath).GetInputStream();
+            using var leitor = new StreamReader(reader,
+                                                    Encoding.GetEncoding("ISO-8859-1"), true);
+            await leitor.ReadLineAsync();
+            while (!leitor.EndOfStream)
             {
-                await leitor.ReadLineAsync();
-                while (!leitor.EndOfStream)
+                string linha = leitor.ReadLine();
+                string[] valores = linha.Split("|");
+                var verificacao = list.Where(x => x.NumeroNota == CustomReplace(valores[0]) &&
+                                              x.Cnpj == CustomReplace(valores[3]).Trim()).FirstOrDefault();
+                if (verificacao == null)
                 {
-                    string linha = leitor.ReadLine();
-                    string[] valores = linha.Split("|");
-                    var verificacao = list.Where(x => x.NumeroNota == CustomReplace(valores[0]) &&
-                                                  x.Cnpj == CustomReplace(valores[3]).Trim()).FirstOrDefault();
-                    if (verificacao == null)
-                    {
-                        list.Add(NovaLinha(valores));
-                        continue;
-                    }
-                    var parcela = AddParcela(CustomReplace(valores[5]), CustomReplace(valores[9]));
-                    var produtoServico = AddProdutoServico(CustomReplace(valores[6]), CustomReplace(valores[8]));
-                    if (parcela != null) verificacao.Parcelas.Add(parcela);
-                    if (produtoServico != null) verificacao.ProdutoServico.Add(produtoServico);
+                    list.Add(NovaLinha(valores));
+                    continue;
                 }
-                return list;
+                var parcela = AddParcela(CustomReplace(valores[5]), CustomReplace(valores[9]));
+                var produtoServico = AddProdutoServico(CustomReplace(valores[6]), CustomReplace(valores[8]));
+                if (parcela != null) verificacao.Parcelas.Add(parcela);
+                if (produtoServico != null) verificacao.ProdutoServico.Add(produtoServico);
             }
+            return list;
         }
 
         private NotaTXTDto NovaLinha(string[] valores)

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using THR.OBRA.NOTAS.ContextBase;
+using THR.OBRA.NOTAS.Service.NotasRadar;
 using THR.ObraNotas.Interface;
 using THR.ObraNotas.Service.Usuario;
 
@@ -23,6 +24,7 @@ builder.Services.AddEntityFrameworkNpgsql()
 //services
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<INotaRADARService, NotasRadarService>();
 
 var app = builder.Build();
 
