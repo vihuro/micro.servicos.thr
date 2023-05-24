@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using THR.OBRA.NOTAS.DTO.NotaTHRDto;
 using THR.OBRA.NOTAS.DTO.Usuario;
+using THR.OBRA.NOTAS.DTO.Usuario.AUTH;
 using THR.OBRA.NOTAS.Models.Notas;
 
 namespace THR.OBRA.NOTAS.Service.Mapping.NotaTHR

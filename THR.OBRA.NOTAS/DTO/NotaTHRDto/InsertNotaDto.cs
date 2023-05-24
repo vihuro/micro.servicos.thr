@@ -9,6 +9,7 @@
         public string? DescricaoProdutoServico { get; set; }
         public string? AvulsoFinalidade { get;set; }
         public string Autorizador { get; set; }
+        public Guid UsuarioCadastroId { get; set; }
         public Guid TimeId { get; set; }
         public string TipoExportacao { get; set; }
         public List<InsertParcelaDto> Percela { get; set; }

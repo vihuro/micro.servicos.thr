@@ -1,6 +1,4 @@
-﻿using THR.auth.DTO.ClaimsForUser;
-
-namespace THR.auth.DTO.Usuario
+﻿namespace THR.OBRA.NOTAS.DTO.Usuario.AUTH
 {
     public class UsuarioRetornoDto
     {

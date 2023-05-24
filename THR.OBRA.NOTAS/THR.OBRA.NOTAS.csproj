@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="DTO\ParcelaDto\" />
-    <Folder Include="Service\Mapping\NotaTHR\" />
   </ItemGroup>
 
 </Project>

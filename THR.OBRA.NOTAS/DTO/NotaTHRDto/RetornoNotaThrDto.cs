@@ -1,4 +1,4 @@
-﻿using THR.OBRA.NOTAS.DTO.Usuario;
+﻿using THR.OBRA.NOTAS.DTO.Usuario.AUTH;
 
 namespace THR.OBRA.NOTAS.DTO.NotaTHRDto
 {

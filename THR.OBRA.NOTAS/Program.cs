@@ -1,6 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using THR.OBRA.NOTAS.ContextBase;
+using THR.OBRA.NOTAS.Interface;
+using THR.OBRA.NOTAS.Service.Mapping.NotaTHR;
+using THR.OBRA.NOTAS.Service.Mapping.Usuario;
 using THR.OBRA.NOTAS.Service.NotasRadar;
+using THR.OBRA.NOTAS.Service.NotasTHR;
+using THR.OBRA.NOTAS.Service.Usuario;
+using THR.OBRA.NOTAS.Utils;
 using THR.ObraNotas.Interface;
 using THR.ObraNotas.Service.Usuario;
 
@@ -13,8 +19,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(x =>
+{
+    x.AddProfile(typeof(NotaTHRMapping));
+    x.AddProfile(typeof(UsuarioMappging));
+});
+
 //context
-var connectionString = builder.Configuration.GetConnectionString("obra_notas");
+var connectionString = builder.Configuration.GetConnectionString("obra.notas");
 builder.Services.AddEntityFrameworkNpgsql()
     .AddDbContext<Context>(op =>
     {
@@ -23,8 +35,18 @@ builder.Services.AddEntityFrameworkNpgsql()
 
 //services
 
-builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IUsuarioAUTHService, UsuarioAUTHService>();
 builder.Services.AddScoped<INotaRADARService, NotasRadarService>();
+builder.Services.AddScoped<INotaTHRService, NotasTHRService>();
+builder.Services.AddScoped<IUsuarioOBRAService, UsuarioOBRAService>();
+builder.Services.AddScoped<ReaderFile>();
+builder.Services.AddScoped<VerifyPlatform>();
+
+var environment = builder.Environment.EnvironmentName;
+
+var filePath = builder.Configuration.Get<FilePath>();
+filePath.Caminho = builder.Configuration.GetSection("variables:FileNOTA")[environment];
+builder.Services.AddSingleton(filePath);
 
 var app = builder.Build();
 
@@ -34,6 +56,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

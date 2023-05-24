@@ -1,6 +1,9 @@
 ﻿using SharpCifs.Smb;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Text;
+using THR.OBRA.NOTAS.Service.CustomException;
+using THR.OBRA.NOTAS.Utils;
 using THR.ObraNotas.DTO.NotaRadarDto;
 using THR.ObraNotas.Interface;
 
@@ -8,32 +11,49 @@ namespace THR.OBRA.NOTAS.Service.NotasRadar
 {
     public class NotasRadarService : INotaRADARService
     {
+        private readonly FilePath _filePath;
+        private readonly ReaderFile _readerFile;
+
+        public NotasRadarService(FilePath filePath, 
+                                 ReaderFile readerFile)
+        {
+            _filePath = filePath;
+            _readerFile = readerFile;
+        }
+
         public async Task<List<NotaTXTDto>> GetAll()
         {
             var list = new List<NotaTXTDto>();
-            var filePath = "smb://192.168.2.24/reports/obra_bi_REL_teste.txt";
-            //var auth = new NtlmPasswordAuthentication("192.168.2.24", "thr", "thr1");
-            using var reader = new SmbFile(filePath).GetInputStream();
-            using var leitor = new StreamReader(reader,
-                                                    Encoding.GetEncoding("ISO-8859-1"), true);
-            await leitor.ReadLineAsync();
-            while (!leitor.EndOfStream)
+            var filePath = _filePath.Caminho;
+
+            try
             {
-                string linha = leitor.ReadLine();
-                string[] valores = linha.Split("|");
-                var verificacao = list.Where(x => x.NumeroNota == CustomReplace(valores[0]) &&
-                                              x.Cnpj == CustomReplace(valores[3]).Trim()).FirstOrDefault();
-                if (verificacao == null)
+                using var leitor = _readerFile.GetFileReader(_filePath.Caminho);
+                await leitor.ReadLineAsync();
+                while (!leitor.EndOfStream)
                 {
-                    list.Add(NovaLinha(valores));
-                    continue;
+                    string linha = leitor.ReadLine();
+                    string[] valores = linha.Split("|");
+                    var verificacao = list.Where(x => x.NumeroNota == CustomReplace(valores[0]) &&
+                                                  x.Cnpj == CustomReplace(valores[3]).Trim()).FirstOrDefault();
+                    if (verificacao == null)
+                    {
+                        list.Add(NovaLinha(valores));
+                        continue;
+                    }
+                    var parcela = AddParcela(CustomReplace(valores[5]), CustomReplace(valores[9]));
+                    var produtoServico = AddProdutoServico(CustomReplace(valores[6]), CustomReplace(valores[8]));
+                    if (parcela != null) verificacao.Parcelas.Add(parcela);
+                    if (produtoServico != null) verificacao.ProdutoServico.Add(produtoServico);
                 }
-                var parcela = AddParcela(CustomReplace(valores[5]), CustomReplace(valores[9]));
-                var produtoServico = AddProdutoServico(CustomReplace(valores[6]), CustomReplace(valores[8]));
-                if (parcela != null) verificacao.Parcelas.Add(parcela);
-                if (produtoServico != null) verificacao.ProdutoServico.Add(produtoServico);
+                return list;
             }
-            return list;
+            catch (Exception ex)
+            {
+
+                throw new MyException(ex.Message);
+            }
+
         }
 
         private NotaTXTDto NovaLinha(string[] valores)

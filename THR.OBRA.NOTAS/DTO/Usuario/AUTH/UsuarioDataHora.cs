@@ -1,4 +1,4 @@
-﻿namespace THR.OBRA.NOTAS.DTO.Usuario
+﻿namespace THR.OBRA.NOTAS.DTO.Usuario.AUTH
 {
     public class UsuarioDataHora
     {

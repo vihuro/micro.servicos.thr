@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using THR.OBRA.NOTAS.Models.Usuario;
 
 namespace THR.OBRA.NOTAS.Models.Notas

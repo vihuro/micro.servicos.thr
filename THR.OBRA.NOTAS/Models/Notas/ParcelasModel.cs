@@ -10,7 +10,7 @@ namespace THR.OBRA.NOTAS.Models.Notas
         public string NumeroParcela { get; set; }
         public string Status { get; set; }
         public DateTime Vencimento { get; set; }
-        public int NotaId { get; set; }
+        public Guid NotaId { get; set; }
         public virtual NotasModel Nota { get; set; }
         public Guid UsuarioCadastroId { get; set; }
         public virtual UsuarioModel UsuarioCadastro { get; set; }
