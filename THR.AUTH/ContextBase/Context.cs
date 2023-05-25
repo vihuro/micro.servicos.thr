@@ -9,6 +9,5 @@ namespace THR.AUTH.DBContext
         public DbSet<UsuarioModel> Usuario { get; set; }
         public DbSet<ClaimsModel> Claims { get; set; }
         public DbSet<ClaimsForUserModel> ClaimsForUser { get; set; }
-
     }
 }

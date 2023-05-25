@@ -12,7 +12,7 @@
         public Guid UsuarioCadastroId { get; set; }
         public Guid TimeId { get; set; }
         public string TipoExportacao { get; set; }
-        public List<InsertParcelaDto> Percela { get; set; }
-        public List<ProdutoServicoResumidoDto> ProdutoServico { get; set; }
+        public List<InsertParcelaDto>? Percela { get; set; }
+        public List<ProdutoServicoResumidoDto>? ProdutoServico { get; set; }
     }
 }

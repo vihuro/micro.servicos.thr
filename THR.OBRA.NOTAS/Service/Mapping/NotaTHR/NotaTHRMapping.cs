@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using THR.OBRA.NOTAS.DTO.NotaTHRDto;
+using THR.OBRA.NOTAS.DTO.ParcelaDto;
 using THR.OBRA.NOTAS.DTO.Usuario;
 using THR.OBRA.NOTAS.DTO.Usuario.AUTH;
+using THR.OBRA.NOTAS.DTO.Usuario.OBRA;
 using THR.OBRA.NOTAS.Models.Notas;
 
 namespace THR.OBRA.NOTAS.Service.Mapping.NotaTHR
@@ -18,17 +20,26 @@ namespace THR.OBRA.NOTAS.Service.Mapping.NotaTHR
                 .ForMember(x => x.Fornecedor, map => map.MapFrom(src => src.Fornecedor))
                 .ForMember(x => x.DescricaoProdutoServico, map => map.MapFrom(src => src.DescricaoProdutoServico))
                 .ForMember(x => x.NumeroNota, map => map.MapFrom(src => src.NumeroNota))
+                .ForMember(x => x.DataHoraCadastro, map => map.MapFrom(src => DateTime.UtcNow))
+                .ForMember(x => x.DataHoraAlteracao, map => map.MapFrom(src => DateTime.UtcNow))
+                .ForMember(x => x.UsuarioAlteracaoId, map => map.MapFrom(src => src.UsuarioCadastroId))
                 .ForMember(x => x.Parcelas, map => map.MapFrom(src => src.Percela.Select(c => new ParcelasModel
                 {
-                    Vencimento = c.Vencimento,
                     NumeroParcela = c.Parcela,
-                    Status = "AGURDANDO PAGAMENTO"
-                })))
+                    Vencimento = c.Vencimento,
+                    UsuarioCadastroId = src.UsuarioCadastroId,
+                    UsuarioAlteracaoId = src.UsuarioCadastroId,
+                    DataHoraAlteracao = DateTime.UtcNow,
+                    DataHoraCadastro = DateTime.UtcNow,
+                    Status = "AGUARDANDO PAGAMENTO",
+                    
+                }))) 
                 .ForMember(x => x.ProdutosServico, map => map.MapFrom(src => src.ProdutoServico.Select(c => new ProdutoServicoModel
                 {
                     Complemento = c.Complemento,
                     DescricaoProdutoServico = c.DescricaoProdutoServico
-                })));
+                })))
+                ;
 
             CreateMap<NotasModel, RetornoNotaThrDto>()
                 .ForMember(x => x.AvulsoFinalidade, map => map.MapFrom(src => src.AvulsoFinalidade))
@@ -38,18 +49,19 @@ namespace THR.OBRA.NOTAS.Service.Mapping.NotaTHR
                 .ForMember(x => x.Fornecedor, map => map.MapFrom(src => src.Fornecedor))
                 .ForMember(x => x.DescricaoProdutoServico, map => map.MapFrom(src => src.DescricaoProdutoServico))
                 .ForMember(x => x.NumeroNota, map => map.MapFrom(src => src.NumeroNota))
-                .ForMember(x => x.Cadastro, map => map.MapFrom(src => new UsuarioDataHora
+                .ForMember(x => x.Time, map => map.MapFrom(src => src.Time.Time))
+                .ForMember(x => x.Cadastro, map => map.MapFrom(src => new UsuarioDataHoraDto
                 {
                     Apelido = src.UsuarioCadastro.Apelido,
                     Nome =  src.UsuarioCadastro.Nome,
-                    IdUsuario = src.UsuarioCadastro.Id,
+                    UsuarioId = src.UsuarioCadastro.Id,
                     DataHora = src.DataHoraCadastro
                 }))
-                .ForMember(x => x.Cadastro, map => map.MapFrom(src => new UsuarioDataHora
+                .ForMember(x => x.Alteracao, map => map.MapFrom(src => new UsuarioDataHoraDto
                 {
                      Apelido = src.UsuarioAlteracao.Apelido,
                      Nome = src.UsuarioAlteracao.Nome,
-                     IdUsuario = src.UsuarioAlteracao.Id,
+                     UsuarioId = src.UsuarioAlteracao.Id,
                      DataHora = src.DataHoraAlteracao
                 }))
 

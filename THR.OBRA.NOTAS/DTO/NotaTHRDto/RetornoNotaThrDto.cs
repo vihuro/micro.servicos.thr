@@ -1,4 +1,5 @@
-﻿using THR.OBRA.NOTAS.DTO.Usuario.AUTH;
+﻿using THR.OBRA.NOTAS.DTO.ParcelaDto;
+using THR.OBRA.NOTAS.DTO.Usuario.OBRA;
 
 namespace THR.OBRA.NOTAS.DTO.NotaTHRDto
 {
@@ -14,8 +15,8 @@ namespace THR.OBRA.NOTAS.DTO.NotaTHRDto
         public string Autorizador { get; set; }
         public List<ProdutoServicoResumidoDto> ProdutosServicos { get; set; }
         public List<ParcelasResumidasDto> Parcelas { get; set; }
-        public UsuarioDataHora Cadastro { get; set; }
-        public UsuarioDataHora Alteracao { get; set; }
+        public UsuarioDataHoraDto Cadastro { get; set; }
+        public UsuarioDataHoraDto Alteracao { get; set; }
         public string Time { get; set; }
         public string TipoExportacao { get; set; }
     }

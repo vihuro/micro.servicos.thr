@@ -1,4 +1,4 @@
-﻿namespace THR.OBRA.NOTAS.DTO.NotaTHRDto
+﻿namespace THR.OBRA.NOTAS.DTO.ParcelaDto
 {
     public class ParcelasResumidasDto
     {
